@@ -8,9 +8,10 @@ Knowledge/*.md
 BACKLOG.md
 
 # Personal configuration
-CLAUDE.md       # If customized from template
-GOALS.md        # Personal goals
-config.yaml     # Personal configuration
+CLAUDE.md       
+AGENTS.md       
+GOALS.md        
+config.yaml     
 
 # Keep templates and examples
 !core/templates/
