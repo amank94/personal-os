@@ -26,11 +26,9 @@ logger = logging.getLogger(__name__)
 # Configuration - use environment variable or current directory
 BASE_DIR = Path(os.environ.get('MANAGER_AI_BASE_DIR', Path.cwd()))
 TASKS_DIR = BASE_DIR / 'Tasks'
-CRM_DIR = BASE_DIR / 'CRM'
 
 # Ensure directories exist
 TASKS_DIR.mkdir(exist_ok=True, parents=True)
-CRM_DIR.mkdir(exist_ok=True, parents=True)
 
 # Duplicate detection configuration
 DEDUP_CONFIG = {
@@ -192,8 +190,8 @@ def guess_category(item: str) -> str:
         return 'writing'
     elif any(word in item_lower for word in ['expense', 'invoice', 'schedule', 'calendar', 'organize']):
         return 'admin'
-    elif any(word in item_lower for word in ['tweet', 'post', 'linkedin', 'social', 'twitter']):
-        return 'social'
+    elif any(word in item_lower for word in ['tweet', 'post', 'linkedin', 'social', 'twitter', 'marketing', 'blog']):
+        return 'marketing'
     else:
         return 'other'
 
@@ -257,15 +255,15 @@ def generate_task_content(item: str, category: str) -> str:
 - [Relevant resources]
 - [People to consult]
 """
-    elif category == 'social':
+    elif category == 'marketing':
         base_content += """
 ## Content Strategy
-- Platform: [Twitter/LinkedIn/etc]
+- Platform: [Twitter/LinkedIn/Blog/etc]
 - Key message: [Core point]
 - Engagement goal: [What response do we want?]
 
 ## Draft Post
-[Initial draft of social content]
+[Initial draft of marketing content]
 """
         
     return base_content
@@ -323,7 +321,7 @@ def get_next_actions(item: str, category: str) -> str:
             "- [ ] Analyze and synthesize findings",
             "- [ ] Document insights and recommendations"
         ])
-    elif category == 'social':
+    elif category == 'marketing':
         actions.extend([
             "- [ ] Research trending topics/hashtags",
             "- [ ] Draft engaging content",

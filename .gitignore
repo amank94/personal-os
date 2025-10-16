@@ -4,7 +4,6 @@
 # Personal task and contact files
 Tasks/*.md
 CRM/*.md
-Knowledge/*.md
 BACKLOG.md
 
 # Personal configuration
@@ -13,8 +12,10 @@ GOALS.md        # Personal goals
 config.yaml     # Personal configuration
 
 # Keep templates and examples
-!core/templates/
-!examples/
+!CLAUDE_TEMPLATE.md
+!config.example.yaml
+!Tasks/example.md
+!CRM/example.md
 
 # Python
 __pycache__/
