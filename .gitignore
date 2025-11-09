@@ -9,7 +9,6 @@ BACKLOG.md
 # Personal configuration
 CLAUDE.md       # If customized from template
 GOALS.md        # Personal goals
-config.yaml     # Personal configuration
 
 # Keep templates and examples
 !CLAUDE_TEMPLATE.md

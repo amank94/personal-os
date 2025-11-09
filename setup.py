@@ -541,7 +541,6 @@ def setup():
     # Copy template files ONLY if they don't exist
     templates = {
         'core/templates/CLAUDE.md': 'CLAUDE.md',
-        'core/templates/config.yaml': 'config.yaml',
         'core/templates/gitignore': '.gitignore',
     }
     
