@@ -1,8 +1,10 @@
 # PersonalOS
 
-A task management system designed for AI assistants with intelligent deduplication and MCP server integration.
+Your AI-powered task management system that keeps you focused on what matters.
 
-## 🚀 Quick Start
+Brain dump into `BACKLOG.md`, tell your AI assistant to process it, and get organized tasks automatically prioritized based on your goals.
+
+## Quick Start
 
 ### 1. Clone the Repository
 ```bash
@@ -29,30 +31,26 @@ The setup will:
 "Read CLAUDE.md and help me get organized"
 ```
 
-## 📝 Essential Commands
+## How It Works
 
-**Daily Use:**
-- `"Process my backlog"` - Turn notes into organized tasks
-- `"Show me my P0 tasks"` - See urgent items
+1. **Brain dump** - Drop notes into `BACKLOG.md` (no structure needed)
+2. **Process** - Say "process my backlog" to your AI
+3. **Get organized** - AI creates prioritized tasks based on your GOALS.md
+4. **Stay focused** - Ask "what should I work on?" for smart suggestions
+
+### Common Commands
+
+- `"Process my backlog"` - Turn notes into tasks
 - `"What should I work on?"` - Get AI suggestions
-- `"Mark [task] as done"` - Complete tasks
+- `"Show me my P0 tasks"` - See urgent items
+- `"Mark [task] as done"` - Complete work
 
-**Weekly Maintenance:**
-- `"Show system status"` - See your workload
-- `"Clean up old tasks"` - Archive completed work
+### Priorities
 
-**When Stuck:**
-- `"What's blocking me?"` - See blocked tasks
-- `"Show active tasks"` - See work in progress
-
-## 🎯 How Priorities Work
-
-- **P0**: Do today (max 3 recommended)
-- **P1**: This week (max 7 recommended)
-- **P2**: Scheduled (default)
-- **P3**: Someday/maybe
-
-The system warns you if you have too many urgent tasks.
+- **P0** - Do today (max 3)
+- **P1** - This week (max 7)
+- **P2** - Scheduled
+- **P3** - Someday/maybe
 
 ## 📂 Directory Structure
 
@@ -75,56 +73,23 @@ personal-os/
 └── setup.sh               # Interactive setup script
 ```
 
-## 🔄 Daily Workflow
+## Daily Workflow
 
-### Morning (2 minutes)
-1. `"Show me today's priorities"`
-2. Pick 1-3 tasks to make active
-3. `"Start working on [task name]"`
+**Morning:** `"Show me today's priorities"` → Pick 1-3 tasks
 
-### During Work
-- Brain dump into `BACKLOG.md` whenever ideas pop up (no structure needed)
-- Update task notes as you go
-- `"Block [task] - waiting on [reason]"` if stuck
-- Save supporting documents to `Knowledge/`
+**During work:** Brain dump into BACKLOG.md, save docs to Knowledge/
 
-### End of Day (2 minutes)
-1. `"Mark [task] as done"` for completed work
-2. `"Show me tomorrow's tasks"` to prep
+**End of day:** `"Mark [task] as done"`
 
-### Weekly (5 minutes)
-1. `"Process my backlog"` - Turn notes into structured tasks
-2. `"Clean up old tasks"` - Archive completed work
-3. Review and adjust priorities
-4. Update `GOALS.md` if priorities shifted
+**Weekly:** `"Process my backlog"` + `"Clean up old tasks"`
 
-## 📊 Task Status Codes
+## Features
 
-- `n` = Not started
-- `s` = Started (actively working)
-- `b` = Blocked (waiting on something)
-- `d` = Done (auto-deleted after 30 days)
-- `r` = Recurring (weekly review items)
-
-## 💡 Pro Tips
-
-1. **Brain dump freely** - Use BACKLOG.md for quick capture, process later
-2. **Link knowledge** - Save important docs to Knowledge/ and reference them in tasks
-3. **Be realistic** - 3 hours of deep work = 1-2 big tasks max
-4. **Context is king** - Tasks should explain WHY they matter, not just WHAT to do
-5. **The system gets smarter** - It learns your patterns over time
-
-## ✨ Features
-
-- 🎯 **Goal-Driven Setup** - Interactive interview to capture your vision, priorities, and success criteria
-- 🧠 **AI-Powered Prioritization** - Uses your goals to intelligently assign task priorities
-- 🔍 **Smart Deduplication** - Automatically detects duplicate tasks before creation
-- 🤔 **Ambiguity Detection** - Flags vague items and asks clarifying questions
-- 📊 **Intelligent Task Organization** - Auto-categorizes with context-aware priorities
-- ✍️ **Personal Tone Guidelines** - Built-in guardrails for natural writing
-- 🔧 **MCP Server** - Professional tool interface for AI assistants
-- ⚙️ **Fully Customizable** - Adapt the system to your workflow
-- 🚫 **No Python Required** - Setup runs with just bash (Python only needed for MCP server)
+- Goal-driven prioritization based on your vision
+- Smart deduplication detects duplicate tasks
+- Natural language - just talk to your AI
+- 2-minute setup, no Python required
+- MCP integration for Claude and other AI assistants
 
 ## 🔧 For Contributors
 
