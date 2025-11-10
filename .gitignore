@@ -1,9 +1,8 @@
 # Template .gitignore for Task Management System
 # Copy relevant parts to your .gitignore
 
-# Personal task and contact files
+# Personal task files
 Tasks/*.md
-CRM/*.md
 BACKLOG.md
 
 # Personal configuration

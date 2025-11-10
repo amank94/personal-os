@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MCP Server for Manager AI - TODO System and CRM Management
+MCP Server for Manager AI - TODO System Management
 """
 
 import os
@@ -34,7 +34,6 @@ TASKS_DIR.mkdir(exist_ok=True, parents=True)
 DEDUP_CONFIG = {
     "similarity_threshold": 0.6,  # How similar before flagging as potential duplicate
     "check_categories": True,     # Same category increases similarity score
-    "check_crm_mentions": True,   # Check for same people/companies in outreach
 }
 
 def parse_yaml_frontmatter(content: str) -> tuple[dict, str]:
@@ -160,7 +159,7 @@ def generate_clarification_questions(item: str) -> List[str]:
     
     # Missing target
     if any(word in item_lower for word in ['email', 'contact', 'reach out', 'follow up']):
-        questions.append("Who should be contacted? (Check CRM for existing contacts)")
+        questions.append("Who should be contacted?")
         questions.append("What's the purpose or goal of this outreach?")
     
     # Missing context
@@ -217,7 +216,6 @@ def generate_task_content(item: str, category: str) -> str:
 [Draft outreach message here based on context]
 
 ## Contact Details
-- Check CRM for existing contact information
 - LinkedIn profile: [to be added]
 - Email: [to be added]
 """
@@ -338,26 +336,6 @@ def get_next_actions(item: str, category: str) -> str:
     
     return '\n'.join(actions)
 
-def get_all_contacts() -> List[Dict[str, Any]]:
-    """Get all contacts from the CRM directory"""
-    contacts = []
-    if not CRM_DIR.exists():
-        return contacts
-    
-    for contact_file in CRM_DIR.glob('*.md'):
-        try:
-            with open(contact_file, 'r') as f:
-                content = f.read()
-                metadata, body = parse_yaml_frontmatter(content)
-                if metadata:
-                    metadata['filename'] = contact_file.name
-                    metadata['body_content'] = body[:500] if body else ''
-                    contacts.append(metadata)
-        except Exception as e:
-            logger.error(f"Error reading {contact_file}: {e}")
-    
-    return contacts
-
 def update_file_frontmatter(filepath: Path, updates: dict) -> bool:
     """Update YAML frontmatter in a file"""
     try:
@@ -435,45 +413,6 @@ async def handle_list_tools() -> list[types.Tool]:
             name="check_priority_limits",
             description="Check if priority limits are exceeded",
             inputSchema={"type": "object", "properties": {}}
-        ),
-        types.Tool(
-            name="list_contacts",
-            description="List CRM contacts with optional filters",
-            inputSchema={
-                "type": "object",
-                "properties": {
-                    "location": {"type": "string", "description": "Filter by location"},
-                    "company": {"type": "string", "description": "Filter by company"},
-                    "name": {"type": "string", "description": "Filter by name"}
-                }
-            }
-        ),
-        types.Tool(
-            name="add_contact",
-            description="Add a new contact to CRM",
-            inputSchema={
-                "type": "object",
-                "properties": {
-                    "name": {"type": "string", "description": "Contact name"},
-                    "email": {"type": "string", "description": "Email address"},
-                    "company": {"type": "string", "description": "Company"},
-                    "location": {"type": "string", "description": "Location"},
-                    "phone": {"type": "string", "description": "Phone number"},
-                    "linkedin": {"type": "string", "description": "LinkedIn URL"}
-                },
-                "required": ["name"]
-            }
-        ),
-        types.Tool(
-            name="search_contacts",
-            description="Search contacts by query",
-            inputSchema={
-                "type": "object",
-                "properties": {
-                    "query": {"type": "string", "description": "Search query"}
-                },
-                "required": ["query"]
-            }
         ),
         types.Tool(
             name="get_system_status",
@@ -671,106 +610,15 @@ async def handle_call_tool(
         }
         
         return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-    
-    elif name == "list_contacts":
-        contacts = get_all_contacts()
-        
-        # Apply filters
-        if arguments:
-            if arguments.get('location'):
-                locations = [l.strip().lower() for l in arguments['location'].split(',')]
-                contacts = [c for c in contacts if any(loc in (c.get('location') or '').lower() for loc in locations)]
-            
-            if arguments.get('company'):
-                company_lower = arguments['company'].lower()
-                contacts = [c for c in contacts if company_lower in (c.get('company') or '').lower()]
-            
-            if arguments.get('name'):
-                name_lower = arguments['name'].lower()
-                contacts = [c for c in contacts if name_lower in (c.get('name') or '').lower()]
-        
-        result = {
-            "contacts": contacts,
-            "count": len(contacts),
-            "filters_applied": arguments or {}
-        }
-        
-        return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-    
-    elif name == "add_contact":
-        name = arguments['name']
-        filename = name.replace(' ', '_').replace('/', '_') + '.md'
-        filepath = CRM_DIR / filename
-        
-        if filepath.exists():
-            result = {
-                "success": False,
-                "error": "Contact already exists"
-            }
-        else:
-            # Create contact metadata
-            metadata = {
-                'name': name,
-                'created_date': datetime.now().strftime('%Y-%m-%d'),
-                'relationship_strength': 'new'
-            }
-            
-            # Add optional fields
-            for field in ['email', 'company', 'location', 'phone', 'linkedin']:
-                if arguments.get(field):
-                    metadata[field] = arguments[field]
-            
-            # Create file content
-            yaml_str = yaml.dump(metadata, default_flow_style=False, sort_keys=False)
-            file_content = f"---\n{yaml_str}---\n\n# {name}\n\n## Notes\n"
-            
-            try:
-                with open(filepath, 'w') as f:
-                    f.write(file_content)
-                
-                result = {
-                    "success": True,
-                    "filename": filename,
-                    "message": f"Contact '{name}' added successfully"
-                }
-            except Exception as e:
-                result = {
-                    "success": False,
-                    "error": str(e)
-                }
-        
-        return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-    
-    elif name == "search_contacts":
-        contacts = get_all_contacts()
-        query = arguments['query'].lower()
-        
-        matches = []
-        for c in contacts:
-            if (query in (c.get('name') or '').lower() or
-                query in (c.get('company') or '').lower() or
-                query in str(c.get('email') or '').lower() or
-                query in (c.get('location') or '').lower() or
-                query in (c.get('body_content') or '').lower()):
-                matches.append(c)
-        
-        result = {
-            "matches": matches,
-            "count": len(matches),
-            "query": arguments['query']
-        }
-        
-        return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
-    
+
     elif name == "get_system_status":
         all_tasks = get_all_tasks()
         active_tasks = [t for t in all_tasks if t.get('status') != 'd']
-        contacts = get_all_contacts()
-        
+
         priority_counts = Counter(task['priority'] for task in active_tasks)
         status_counts = Counter(task['status'] for task in active_tasks)
         category_counts = Counter(task['category'] for task in active_tasks)
-        
+
         # Check backlog
         backlog_items = 0
         backlog_file = BASE_DIR / 'BACKLOG.md'
@@ -779,12 +627,12 @@ async def handle_call_tool(
                 content = f.read().strip()
                 if content and content != 'all done!':
                     backlog_items = len([l for l in content.split('\n') if l.strip().startswith('-')])
-        
+
         # Time insights
         now = datetime.now()
         hour = now.hour
         day_name = now.strftime('%A')
-        
+
         time_insights = []
         if 9 <= hour < 12:
             time_insights.append("Morning - ideal for outreach tasks")
@@ -792,10 +640,9 @@ async def handle_call_tool(
             time_insights.append("Afternoon - good for deep work")
         elif hour >= 17:
             time_insights.append("End of day - quick admin tasks")
-        
+
         result = {
             "total_active_tasks": len(active_tasks),
-            "total_contacts": len(contacts),
             "priority_distribution": dict(priority_counts),
             "status_distribution": dict(status_counts),
             "category_distribution": dict(category_counts),
@@ -908,10 +755,9 @@ async def handle_call_tool(
             return [types.TextContent(type="text", text=json.dumps({
                 "error": "No items provided to process"
             }, indent=2))]
-        
+
         existing_tasks = get_all_tasks()
-        existing_contacts = get_all_contacts()
-        
+
         result = {
             "new_tasks": [],
             "potential_duplicates": [],
@@ -1014,7 +860,6 @@ async def main():
     logger.info(f"Starting Manager AI MCP Server")
     logger.info(f"Working directory: {BASE_DIR}")
     logger.info(f"Tasks directory: {TASKS_DIR}")
-    logger.info(f"CRM directory: {CRM_DIR}")
     
     async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
         await app.run(
