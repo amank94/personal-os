@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Personal OS Setup Script
 # Creates directories, copies templates, and guides you through goals creation
@@ -130,17 +130,16 @@ echo "  • Flag when you're drifting from what matters"
 echo ""
 read -p "Ready to dive in? Press Enter to start..."
 
-# Collect answers
-declare -A answers
+# Collect answers (using individual variables for bash 3.2 compatibility)
 
 # Section 1: Current Context
 print_header "1. Your Current Context"
 
-answers[role]=$(ask_question \
+ans_role=$(ask_question \
     "What's your current role or primary work?" \
     "Product Manager, Software Engineer, Founder, Consultant")
 
-answers[time_split]=$(ask_question \
+ans_time_split=$(ask_question \
     "How do you currently split your time? (rough %)" \
     "40% product work, 30% stakeholder mgmt, 20% team, 10% learning")
 
@@ -151,22 +150,22 @@ echo ""
 echo "Think about your last few weeks of work..."
 echo ""
 
-answers[energizing]=$(ask_question \
+ans_energizing=$(ask_question \
     "What activities or tasks make you feel most alive and engaged?" \
     "Solving tough problems, mentoring others, writing specs, user research")
 
-answers[draining]=$(ask_question \
+ans_draining=$(ask_question \
     "What drains your energy or feels like a slog?" \
     "Status meetings, repetitive tasks, office politics, interruptions")
 
 # Section 3: Core Values
 print_header "3. Your Core Values"
 
-answers[values]=$(ask_question \
+ans_values=$(ask_question \
     "What 3-5 values guide your work and life decisions?" \
     "Growth, Impact, Autonomy, Creativity, Balance")
 
-answers[why_matter]=$(ask_question \
+ans_why_matter=$(ask_question \
     "Why do these values matter to you? What do they enable?" \
     "They help me do meaningful work while staying sane")
 
@@ -177,50 +176,50 @@ echo ""
 echo "Rate these areas on a scale of 1-10 (current satisfaction):"
 echo ""
 
-answers[health]=$(ask_question "Health & Well-being (exercise, sleep, energy):" "")
-answers[work]=$(ask_question "Work & Career (growth, impact, enjoyment):" "")
-answers[relationships]=$(ask_question "Relationships (family, friends, network):" "")
-answers[learning]=$(ask_question "Learning & Growth (skills, knowledge, curiosity):" "")
+ans_health=$(ask_question "Health & Well-being (exercise, sleep, energy):" "")
+ans_work=$(ask_question "Work & Career (growth, impact, enjoyment):" "")
+ans_relationships=$(ask_question "Relationships (family, friends, network):" "")
+ans_learning=$(ask_question "Learning & Growth (skills, knowledge, curiosity):" "")
 
 echo ""
 echo "Which ONE area needs the most attention right now?"
 echo -n "> "
-read -r answers[focus_area]
+read -r ans_focus_area
 
 # Section 5: Vision & Direction
 print_header "5. Your Vision"
 
-answers[vision_12mo]=$(ask_question \
+ans_vision_12mo=$(ask_question \
     "12 months from now, what would make you think 'this was a great year'?" \
     "Shipped 3 major features, got promoted, launched side project, ran a marathon")
 
-answers[vision_3yr]=$(ask_question \
+ans_vision_3yr=$(ask_question \
     "In 3 years, where do you want to be professionally?" \
     "VP Product, Running my own consultancy, Leading a team of 10")
 
-answers[avoid]=$(ask_question \
+ans_avoid=$(ask_question \
     "What do you want to AVOID or say NO to?" \
     "Burnout, meaningless work, toxic environments, over-commitment")
 
 # Section 6: Current Focus
 print_header "6. Current Priorities"
 
-answers[top_priorities]=$(ask_question \
+ans_top_priorities=$(ask_question \
     "What are your top 3 priorities RIGHT NOW?" \
     "1) Launch feature X, 2) Hire 2 engineers, 3) Build exec presence")
 
-answers[projects]=$(ask_question \
+ans_projects=$(ask_question \
     "What specific projects or initiatives are you driving?" \
     "Q1 Roadmap, New analytics platform, Team restructuring")
 
 # Section 7: Outcomes
 print_header "7. What Success Looks Like"
 
-answers[outcomes_this_quarter]=$(ask_question \
+ans_outcomes_this_quarter=$(ask_question \
     "By end of this quarter, what outcomes would you celebrate?" \
     "Feature shipped to 10k users, Team velocity increased 30%, New skill learned")
 
-answers[how_measure]=$(ask_question \
+ans_how_measure=$(ask_question \
     "How will you measure progress? What signals matter?" \
     "User adoption metrics, Team feedback, Stakeholder satisfaction, Personal energy")
 
@@ -236,59 +235,59 @@ cat > "GOALS.md" << EOF
 
 ## Who I Am
 
-**Current Role:** ${answers[role]}
+**Current Role:** ${ans_role}
 
-**Time Distribution:** ${answers[time_split]}
+**Time Distribution:** ${ans_time_split}
 
 ## What Energizes Me
 
 **Tasks that give me energy:**
-${answers[energizing]}
+${ans_energizing}
 
 **Things that drain me:**
-${answers[draining]}
+${ans_draining}
 
 ## Core Values
 
-${answers[values]}
+${ans_values}
 
 **Why these matter:**
-${answers[why_matter]}
+${ans_why_matter}
 
 ## Life Balance Dashboard
 
 Current satisfaction (1-10 scale):
-- **Health & Well-being:** ${answers[health]}/10
-- **Work & Career:** ${answers[work]}/10
-- **Relationships:** ${answers[relationships]}/10
-- **Learning & Growth:** ${answers[learning]}/10
+- **Health & Well-being:** ${ans_health}/10
+- **Work & Career:** ${ans_work}/10
+- **Relationships:** ${ans_relationships}/10
+- **Learning & Growth:** ${ans_learning}/10
 
-**Needs attention:** ${answers[focus_area]}
+**Needs attention:** ${ans_focus_area}
 
 ## Vision & Direction
 
 ### 12-Month Vision
-${answers[vision_12mo]}
+${ans_vision_12mo}
 
 ### 3-Year North Star
-${answers[vision_3yr]}
+${ans_vision_3yr}
 
 ### What I'm Saying NO To
-${answers[avoid]}
+${ans_avoid}
 
 ## Current Focus
 
 ### Top 3 Priorities
-${answers[top_priorities]}
+${ans_top_priorities}
 
 ### Active Projects
-${answers[projects]}
+${ans_projects}
 
 ### This Quarter's Outcomes
-${answers[outcomes_this_quarter]}
+${ans_outcomes_this_quarter}
 
 ### How I Measure Progress
-${answers[how_measure]}
+${ans_how_measure}
 
 ---
 
