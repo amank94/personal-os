@@ -66,7 +66,7 @@ echo "  1. Create your workspace structure"
 echo "  2. Define your goals and priorities"
 echo "  3. Configure your AI assistant"
 echo ""
-echo "Takes about 5-10 minutes. Be honest and specific."
+echo "Takes about 2 minutes. Be honest and specific."
 echo ""
 read -p "Press Enter to begin..."
 
@@ -124,7 +124,7 @@ echo "You can always edit GOALS.md later to refine your thinking."
 echo ""
 read -p "Ready to dive in? Press Enter to start..."
 
-# Collect answers (using individual variables for bash 3.2 compatibility)
+# Collect answers (keeping it short - 5 essential questions)
 
 # Section 1: Current Situation
 print_header "1. Current Situation"
@@ -133,82 +133,44 @@ ans_role=$(ask_question \
     "What's your current role?" \
     "Product Manager, Senior Engineer, Founder, VP Product")
 
-ans_company=$(ask_question \
-    "What company or organization? (optional)" \
-    "")
-
-# Section 2: Vision & Direction
-print_header "2. Vision & Direction"
+# Section 2: Vision
+print_header "2. Your Vision"
 
 ans_vision=$(ask_question \
     "What's your primary professional vision? What are you building toward?" \
     "Become VP Product, Launch a successful product, Build a thriving consultancy")
 
-if [ -n "$ans_vision" ]; then
-    echo ""
-    echo "Tell me more about that vision..."
-    ans_vision_why=$(ask_question \
-        "What would achieving this enable? Why does it matter to you?" \
-        "")
-fi
-
-# Section 3: Success Criteria
-print_header "3. Success Criteria"
+# Section 3: Success This Year
+print_header "3. Success This Year"
 
 ans_success_12mo=$(ask_question \
     "In 12 months, what would make you think 'this was a successful year'?" \
     "Shipped 3 major features, Built a team of 10, Became recognized expert in my field")
 
-ans_success_5yr=$(ask_question \
-    "What's your 5-year north star? Where do you want to be?" \
-    "")
-
-# Section 4: Current Focus
-print_header "4. Current Focus"
-
-ans_current_focus=$(ask_question \
-    "What are you actively working on right now?" \
-    "Product roadmap, Team building, User research initiative")
+# Section 4: This Quarter
+print_header "4. This Quarter"
 
 ans_q1_goals=$(ask_question \
     "What are your objectives for THIS QUARTER (next 90 days)?" \
     "Launch new feature, Improve activation by 20%, Build PM practice")
 
-if [ -n "$ans_q1_goals" ]; then
-    ans_q1_metrics=$(ask_question \
-        "How will you measure success on those quarterly objectives?" \
-        "User adoption, Revenue, Team satisfaction")
-fi
-
-# Section 5: Development & Growth
-print_header "5. Development & Growth"
-
-ans_skills=$(ask_question \
-    "What skills do you need to develop to achieve your vision?" \
-    "Data analysis, Technical architecture, Strategic communication")
-
-ans_relationships=$(ask_question \
-    "What key relationships or network do you need to build?" \
-    "Engineering leaders, Design partners, Industry experts")
-
-# Section 6: Challenges & Opportunities
-print_header "6. Challenges & Opportunities"
-
-ans_challenges=$(ask_question \
-    "What's currently blocking you or slowing you down?" \
-    "Time management, Technical knowledge gaps, Cross-functional alignment")
-
-ans_opportunities=$(ask_question \
-    "What opportunities are you exploring or considering?" \
-    "Speaking engagements, Product launches, Team expansion")
-
-# Section 7: Priority Setting
-print_header "7. Priority Setting"
-echo "Finally, let's get crystal clear on priorities..."
+# Section 5: Top Priorities
+print_header "5. Top Priorities"
 
 ans_top3=$(ask_question \
     "What are your TOP 3 PRIORITIES right now? (Be brutally honest)" \
     "1. Ship Q1 roadmap, 2. Build thought leadership, 3. Develop AI product skills")
+
+# Set empty placeholders for sections user can fill in later
+ans_company=""
+ans_vision_why=""
+ans_success_5yr=""
+ans_current_focus=""
+ans_q1_metrics=""
+ans_skills=""
+ans_relationships=""
+ans_challenges=""
+ans_opportunities=""
 
 # Generate GOALS.md
 print_header "Generating Your GOALS.md"

@@ -10,7 +10,7 @@ git clone https://github.com/amanaiproduct/personal-os.git
 cd personal-os
 ```
 
-### 2. Run Setup (5 minutes)
+### 2. Run Setup (2 minutes)
 ```bash
 ./setup.sh
 ```
