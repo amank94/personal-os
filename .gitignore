@@ -3,6 +3,7 @@
 
 # Personal task files
 Tasks/*.md
+!Tasks/.gitkeep
 BACKLOG.md
 
 # Personal configuration

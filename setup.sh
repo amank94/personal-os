@@ -36,12 +36,12 @@ ask_question() {
     local example="$2"
     local response=""
 
-    echo ""
-    echo "$prompt"
+    echo "" >&2
+    echo "$prompt" >&2
     if [ -n "$example" ]; then
-        echo -e "${BLUE}Examples: $example${NC}"
+        echo -e "${BLUE}Examples: $example${NC}" >&2
     fi
-    echo -n "> "
+    echo -n "> " >&2
     read -r response
     echo "$response"
 }
