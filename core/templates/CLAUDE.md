@@ -136,7 +136,7 @@ The MCP server automatically categorizes based on keywords. Categories optimized
 - **research**: User research, market analysis, competitive analysis, learning new domains
 - **writing**: Product specs, PRDs, user stories, documentation, analysis reports
 - **admin**: Scheduling, expense tracking, organizational tasks, meeting prep
-- **marketing**: Marketing content, social media posts, blog posts, LinkedIn updates, public content (MUST follow anti-slop writing guidelines)
+- **marketing**: Marketing content, social media posts, blog posts, LinkedIn updates, public content (MUST follow personal tone guidelines)
 - **other**: Miscellaneous or cross-category tasks
 
 ## Priority Levels with System Monitoring
@@ -227,7 +227,7 @@ For outreach/writing tasks, include draft content (email subject/body, spec outl
 
 ## Writing Style Guidelines (ALL Communications)
 
-### CRITICAL: Avoid "Slop Phrases" in All Writing
+### CRITICAL: Maintain Personal Tone in All Writing
 
 **THE WORST OFFENDER - Corrective Reframing/Antithesis:**
 Never use these false dichotomy patterns:
@@ -236,7 +236,7 @@ Never use these false dichotomy patterns:
 - "Everyone sees X. The reality is Y."
 - "That's not X. That's Y."
 
-**Other clichéd AI-sounding phrases to avoid:**
+**Other clichéd phrases to avoid:**
 - "The key insight..." 
 - "Remember... the goal is not to X but Y"
 - "It's not X, it's Y" constructions
@@ -248,7 +248,7 @@ Never use these false dichotomy patterns:
 - Em dashes (—) - use regular dashes or commas instead
 - Overuse of bullet points or emojis in emails/posts
 
-**Common AI slop patterns to avoid:**
+**Common patterns to avoid:**
 - "When I asked X to do Y, it didn't just Z. It [list]" 
 - "The difference? [Answer]" as rhetorical device
 - "Those [thing]? They're [explanation]" rhetorical questions
@@ -268,7 +268,7 @@ Never use these false dichotomy patterns:
 3. Consult materials in the `Resources/` folder to gather context
 4. Populate a `## Context` section in the task markdown file with key findings
 5. Produce the requested content using the context section
-6. Reread and perform a slop check, removing any violating phrases
+6. Reread and perform a tone check, removing any clichéd phrases
 
 ### Outreach & Email Tone
 When drafting stakeholder communication or emails:
@@ -287,10 +287,10 @@ When drafting stakeholder communication or emails:
 - Long bullet point lists in emails
 - Corporate speak and buzzwords
 - Excessive politeness or hedging
-- Any of the "slop phrases" listed above
+- Any of the clichéd phrases listed above
 
 ### Marketing Content (Blog Posts/Social Media)
-**Extra vigilant about avoiding slop - marketing posts should be:**
+**Extra vigilant about maintaining personal tone - marketing posts should be:**
 - Direct and punchy
 - No "The key insight is..."
 - No "Remember, it's not about X but Y"
@@ -301,7 +301,7 @@ When drafting stakeholder communication or emails:
 **Good example:**
 "We analyzed 500 product launches. The ones that succeeded had one thing in common: they shipped an MVP in under 6 weeks. The ones that failed? Average time to MVP was 6 months."
 
-**Bad example (full of slop):**
+**Bad example (clichéd phrasing):**
 "The key insight here — it's not about speed, it's about learning. This comprehensive approach to product development represents a critical shift in how we think about MVPs. Remember: the goal isn't to ship fast, but to learn faster. 🚀📊✨"
 
 ## Decision Framework
@@ -390,7 +390,7 @@ When user asks "what should I work on":
 - "Learn about X" → "Become the recognized expert who other PMs consult"
 
 **When drafting communications:** Encourage bold asks - you only get what you ask for:
-- **CRITICAL: Avoid "slop phrases"** - No "key insights", "remember X not Y", unnecessary adjectives
+- **CRITICAL: Maintain personal tone** - No "key insights", "remember X not Y", unnecessary adjectives
 - Write directly and naturally, like you're talking to a smart colleague
 - For marketing: Lead with the interesting fact, not throat-clearing
 - Email to exec: "I'd love your thoughts" → "I have a specific proposal that could 10x our impact - can we discuss this week?"

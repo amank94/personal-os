@@ -120,7 +120,7 @@ personal-os/
 - 🔍 **Smart Deduplication** - Automatically detects duplicate tasks before creation
 - 🤔 **Ambiguity Detection** - Flags vague items and asks clarifying questions
 - 📊 **Intelligent Task Organization** - Auto-categorizes with context-aware priorities
-- ✍️ **Anti-Slop Writing Guidelines** - Built-in guardrails for natural, non-AI-sounding content
+- ✍️ **Personal Tone Guidelines** - Built-in guardrails for natural writing
 - 🔧 **MCP Server** - Professional tool interface for AI assistants
 - ⚙️ **Fully Customizable** - Adapt the system to your workflow
 
