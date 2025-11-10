@@ -36,12 +36,14 @@ ask_question() {
     local example="$2"
     local response=""
 
-    echo ""
-    echo "$prompt"
+    # Print prompt to terminal (stderr so it's not captured)
+    echo "" >&2
+    echo "$prompt" >&2
     if [ -n "$example" ]; then
-        echo -e "${BLUE}$example${NC}"
+        echo -e "${BLUE}$example${NC}" >&2
     fi
     read -r response
+    # Return answer to stdout (gets captured)
     echo "$response"
 }
 
@@ -158,7 +160,7 @@ ans_q1_goals=$(ask_question \
 print_header "5. Top Priorities"
 
 ans_top3=$(ask_question \
-    "What are your TOP 3 PRIORITIES right now? (Be brutally honest)" \
+    "What are your top 3 priorities right now? (Be brutally honest)" \
     "1. Ship Q1 roadmap, 2. Build thought leadership, 3. Develop AI product skills")
 
 # Set empty placeholders for sections user can fill in later
@@ -184,45 +186,46 @@ cat > "GOALS.md" << EOF
 
 ## Current Context
 
-### Role & Responsibilities
+### What's your current role?
 ${ans_role}${ans_company:+ at }${ans_company}
 
-### Primary Vision
+### What's your primary professional vision? What are you building toward?
 ${ans_vision}
 
-${ans_vision_why:+${ans_vision_why}}
+${ans_vision_why:+**Why this matters:**
+${ans_vision_why}}
 
 ## Success Criteria
 
-### 12-Month Horizon
+### In 12 months, what would make you think 'this was a successful year'?
 ${ans_success_12mo}
 
-### 5-Year North Star
+### What's your 5-year north star? Where do you want to be?
 ${ans_success_5yr}
 
 ## Current Focus Areas
 
-### What I'm Working On
+### What are you actively working on right now?
 ${ans_current_focus}
 
-### This Quarter's Objectives
+### What are your objectives for THIS QUARTER (next 90 days)?
 ${ans_q1_goals}
 
-${ans_q1_metrics:+**Success Metrics:**
+${ans_q1_metrics:+**How will you measure success on those quarterly objectives?**
 ${ans_q1_metrics}}
 
-### Skill Development
+### What skills do you need to develop to achieve your vision?
 ${ans_skills}
 
-### Key Relationships & Network Building
+### What key relationships or network do you need to build?
 ${ans_relationships}
 
 ## Strategic Context
 
-### Challenges & Blockers
+### What's currently blocking you or slowing you down?
 ${ans_challenges}
 
-### Opportunities to Explore
+### What opportunities are you exploring or considering?
 ${ans_opportunities}
 
 ## Priority Framework
@@ -252,7 +255,7 @@ When evaluating new tasks and commitments:
 - Speculative projects
 - Activities without clear advancement value
 
-## Top 3 Priorities (Right Now)
+## What are your top 3 priorities right now?
 
 ${ans_top3}
 
