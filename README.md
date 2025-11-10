@@ -12,7 +12,7 @@ cd personal-os
 
 ### 2. Run Setup (5 minutes)
 ```bash
-./setup.sh
+setup.sh
 ```
 
 The setup will:
