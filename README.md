@@ -17,7 +17,7 @@ cd personal-os
 
 The setup will:
 - Create your workspace directories
-- Guide you through a work-life balance interview
+- Guide you through questions about your goals and priorities
 - Generate your personalized GOALS.md
 - Copy template files
 
@@ -116,7 +116,7 @@ personal-os/
 
 ## ✨ Features
 
-- 🎯 **Work-Life Balance Setup** - Interactive interview inspired by "Designing Your Life" principles
+- 🎯 **Goal-Driven Setup** - Interactive interview to capture your vision, priorities, and success criteria
 - 🧠 **AI-Powered Prioritization** - Uses your goals to intelligently assign task priorities
 - 🔍 **Smart Deduplication** - Automatically detects duplicate tasks before creation
 - 🤔 **Ambiguity Detection** - Flags vague items and asks clarifying questions
